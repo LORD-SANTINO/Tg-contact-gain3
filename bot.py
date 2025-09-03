@@ -9,6 +9,7 @@ from datetime import datetime
 from telethon import TelegramClient, events, functions, types
 from telethon.tl.types import InputPhoneContact, InputUser
 from telethon.errors import FloodWaitError, UserPrivacyRestrictedError
+from telethon.tl.types import Channel, User
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -304,8 +305,20 @@ async def handle_help(event):
 # Main message handler
 @client.on(events.NewMessage)
 async def message_handler(event):
-    # Ignore messages from other bots and channels
-    if event.sender.bot or event.is_channel:
+    # Ignore messages from channels and bots
+    try:
+        # Check if sender is a bot
+        is_bot = False
+        if isinstance(event.sender, User):
+            is_bot = event.sender.bot
+        elif isinstance(event.sender, Channel):
+            # Channels can't send commands, so we can ignore them
+            return
+            
+        if is_bot or event.is_channel:
+            return
+    except Exception as e:
+        logger.error(f"Error checking sender type: {e}")
         return
         
     text = event.raw_text
