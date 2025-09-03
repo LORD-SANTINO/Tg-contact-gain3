@@ -16,9 +16,9 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Your API credentials (from my.telegram.org)
-API_ID = int(os.getenv("API_ID", 0))
-API_HASH = os.getenv("API_HASH", "")
-PHONE = os.getenv("PHONE", "")  # Your Telegram phone for userbot session
+API_ID = int(os.getenv("API_ID"))
+API_HASH = os.getenv("API_HASH")
+PHONE = os.getenv("PHONE")  # Your Telegram phone for userbot session
 
 # Validate environment variables
 if not all([API_ID, API_HASH, PHONE]):
