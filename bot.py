@@ -21,7 +21,7 @@ client = TelegramClient(os.path.join(user_folder, f"{PHONE}.session"), API_ID, A
 # Store uploaded contacts and requests in memory or files
 contacts = []
 current_channel = None
-requests_channel = '@requsetmembersbot'  # where main bot sends requests
+requests_channel = '@requestmembersbot'  # where main bot sends requests
 
 # Start the client
 async def main():
